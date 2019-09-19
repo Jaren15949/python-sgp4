@@ -11,10 +11,10 @@ import sys
 from doctest import DocTestSuite, ELLIPSIS
 from math import pi, isnan
 
-from sgp4.earth_gravity import wgs72
-from sgp4.ext import invjday, newtonnu, rv2coe
-from sgp4.propagation import sgp4
-from sgp4 import io
+from earth_gravity import wgs72
+from ext import invjday, newtonnu, rv2coe
+from propagation import sgp4
+import sgp4io as io
 
 thisdir = os.path.dirname(__file__)
 error = 2e-7
@@ -132,7 +132,7 @@ class Tests(TestCase):
         self.assertRaises(ValueError, io.verify_checksum, bad)
 
     def test_bad_first_line(self):
-        with self.assertRaisesRegexp(ValueError, re.escape("""TLE format error
+        with self.assertRaisesRegex(ValueError, re.escape("""TLE format error
 
 The Two-Line Element (TLE) format was designed for punch cards, and so
 is very strict about the position of every period, space, and digit.
@@ -144,7 +144,7 @@ with an N where each digit should go, followed by the line you provided:
             io.twoline2rv(good1.replace('23 ', '234'), good2, wgs72)
 
     def test_bad_second_line(self):
-        with self.assertRaisesRegexp(ValueError, re.escape("""TLE format error
+        with self.assertRaisesRegex(ValueError, re.escape("""TLE format error
 
 The Two-Line Element (TLE) format was designed for punch cards, and so
 is very strict about the position of every period, space, and digit.
@@ -157,7 +157,7 @@ with an N where each digit should go, followed by the line you provided:
 
     def test_mismatched_lines(self):
         msg = "Object numbers in lines 1 and 2 do not match"
-        with self.assertRaisesRegexp(ValueError, re.escape(msg)):
+        with self.assertRaisesRegex(ValueError, re.escape(msg)):
             io.twoline2rv(good1, bad2, wgs72)
 
 

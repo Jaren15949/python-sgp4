@@ -1,7 +1,7 @@
 """The Satellite class."""
 
-from sgp4.ext import jday
-from sgp4.propagation import sgp4
+from ext import jday
+from propagation import sgp4
 
 minutes_per_day = 1440.
 
